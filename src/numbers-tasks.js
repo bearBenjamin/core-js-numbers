@@ -237,8 +237,20 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  if (Number.isFinite(value)) {
+    return value;
+  }
+
+  if (Number.isNaN(value)) {
+    return value;
+  }
+
+  if (+value) {
+    return value;
+  }
+
+  return def;
 }
 
 /**
@@ -252,8 +264,8 @@ function toNumber(/* value, def */) {
  *   -2 => -8
  *   0  => 0
  */
-function getCube(/* num */) {
-  throw new Error('Not implemented');
+function getCube(num) {
+  return num ** 3;
 }
 
 /**
@@ -269,8 +281,27 @@ function getCube(/* num */) {
  *   3  => 2
  *   10 => 55
  */
-function getFibonacciNumber(/* index */) {
-  throw new Error('Not implemented');
+function getFibonacciNumber(index) {
+  let firstFibonacciNumber = 0;
+  let nextFibonacciNumber = 1;
+  let interimFibonacciNumber;
+
+  const fibonacciNumbers = [0, 1];
+
+  if (fibonacciNumbers[index] !== undefined) {
+    return fibonacciNumbers[index];
+  }
+
+  const length = index + 1;
+
+  for (let i = 2; i <= length; i += 1) {
+    interimFibonacciNumber = firstFibonacciNumber + nextFibonacciNumber;
+    firstFibonacciNumber = nextFibonacciNumber;
+    nextFibonacciNumber = interimFibonacciNumber;
+    fibonacciNumbers.push(nextFibonacciNumber);
+  }
+
+  return fibonacciNumbers[index];
 }
 
 /**
@@ -284,8 +315,8 @@ function getFibonacciNumber(/* index */) {
  *   10 => 55 // (1+2+3+...+10)
  *   1  => 1
  */
-function getSumToN(/* n */) {
-  throw new Error('Not implemented');
+function getSumToN(n) {
+  return (n * (n + 1)) / 2;
 }
 
 /**
@@ -299,8 +330,15 @@ function getSumToN(/* n */) {
  *   202 => 4  // (2+0+2)
  *   5   => 5  // 5
  */
-function getSumOfDigits(/* num */) {
-  throw new Error('Not implemented');
+function getSumOfDigits(num) {
+  let sum = 0;
+  const numbers = num.toString().split('');
+
+  for (let i = 0; i < numbers.length; i += 1) {
+    sum += +numbers[i];
+  }
+
+  return sum;
 }
 
 /**
@@ -314,8 +352,17 @@ function getSumOfDigits(/* num */) {
  *   16  => true
  *   15  => false
  */
-function isPowerOfTwo(/* num */) {
-  throw new Error('Not implemented');
+function isPowerOfTwo(num) {
+  let count = num;
+
+  while (count > 1) {
+    if (count % 2 !== 0) {
+      return false;
+    }
+    count /= 2;
+  }
+
+  return true;
 }
 
 /**
@@ -328,8 +375,8 @@ function isPowerOfTwo(/* num */) {
  *   0 => 0
  *   Math.PI / 2 => 1
  */
-function getSine(/* num */) {
-  throw new Error('Not implemented');
+function getSine(num) {
+  return Math.sin(num);
 }
 
 /**
